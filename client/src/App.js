@@ -1,23 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import noteService from './services/notes';
+import { useEffect, useState } from 'react';
+import Note from './components/Note';
+import NoteForm from './components/NoteForm';
 
 function App() {
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState('');
+  const [isImportant, setIsImportant] = useState(false);
+
+  const handleChange = e => {
+    const { value, type, checked } = e.target;
+    type === 'checkbox' ? setIsImportant(checked) : setNewNote(value);
+  };
+
+  const generateId = () => {
+    return Math.max(...notes.map(note => note.id)) + 1;
+  };
+
+  const addNote = e => {
+    e.preventDefault();
+    const noteObject = {
+      content: newNote,
+      date: new Date(),
+      important: isImportant,
+      id: generateId(),
+    };
+    noteService
+      .create(noteObject)
+      .then(returnedNote => {
+        setNotes(notes.concat(returnedNote));
+        setNewNote('');
+        setIsImportant(false);
+      })
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    noteService.getAll().then(initialNotes => setNotes(initialNotes));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Bestest note app you can find</h1>
+      <ul>
+        {notes.map(note => (
+          <Note key={note.id} note={note} />
+        ))}
+      </ul>
+      <NoteForm
+        newNote={newNote}
+        isImportant={isImportant}
+        handleChange={handleChange}
+        addNote={addNote}
+      />
     </div>
   );
 }

@@ -1,0 +1,13 @@
+
+
+DELETE http://localhost:3000/api/notes/1
+
+# POST http://localhost:3000/api/notes
+# Content-Type: application/json
+
+# {
+#   "content": "Hello", 
+#   "date": "today", 
+#   "important": true,
+#   "id": 10
+# }
