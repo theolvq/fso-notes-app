@@ -4,6 +4,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// TODO add mongoDB and mongoose
+// TODO add dotenv config
+// TODO add errorHandler
+// TODO add requestLogger with morgan
+
 let notes = [
   {
     content: 'I love coding',
@@ -53,6 +58,18 @@ app.delete('/api/notes/:id', (req, res) => {
   const id = Number(req.params.id);
   notes = notes.filter(note => note.id !== id);
   res.status(200).json(notes);
+});
+
+app.put('/api/notes/:id', (req, res) => {
+  const body = req.body;
+  const updatedNote = {
+    content: body.content,
+    date: body.date,
+    important: body.important,
+    id: body.id,
+  };
+
+  res.status(200).json(updatedNote);
 });
 
 app.post('/api/notes', (req, res) => {

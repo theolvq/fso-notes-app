@@ -1,6 +1,16 @@
 
 
-DELETE http://localhost:3000/api/notes/1
+PUT http://localhost:3000/api/notes/1
+Content-Type: application/json
+
+  {
+    "content":"I love coding",
+    "date":"5/25/2021",
+    "important":false,
+    "id":1
+    }
+
+
 
 # POST http://localhost:3000/api/notes
 # Content-Type: application/json

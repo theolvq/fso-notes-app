@@ -17,10 +17,17 @@ const deleteNote = id => {
   return request.then(res => res.data);
 };
 
+const update = (newObject, id) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject);
+  console.log('id:', id, 'obj:', newObject);
+  return request.then(res => res.data);
+};
+
 const noteService = {
   getAll,
   create,
   deleteNote,
+  update,
 };
 
 export default noteService;

@@ -35,6 +35,18 @@ function App() {
       .catch(err => console.log(err));
   };
 
+  const toggleImportance = id => {
+    const note = notes.find(note => note.id === id);
+    const updatedNote = { ...note, important: !note.important };
+
+    noteService
+      .update(updatedNote, id)
+      .then(returnedNote => {
+        setNotes(notes.map(note => (note.id !== id ? note : returnedNote)));
+      })
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
     noteService.getAll().then(initialNotes => setNotes(initialNotes));
   }, []);
@@ -44,7 +56,7 @@ function App() {
       <h1>Bestest note app you can find</h1>
       <ul>
         {notes.map(note => (
-          <Note key={note.id} note={note} />
+          <Note key={note.id} note={note} toggleImportance={toggleImportance} />
         ))}
       </ul>
       <NoteForm
