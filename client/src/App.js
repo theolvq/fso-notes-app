@@ -21,17 +21,12 @@ function App() {
     type === 'checkbox' ? setIsImportant(checked) : setNewNote(value);
   };
 
-  const generateId = () => {
-    return Math.max(...notes.map(note => note.id)) + 1;
-  };
-
   const addNote = e => {
     e.preventDefault();
     const noteObject = {
       content: newNote,
       date: new Date(),
       important: isImportant,
-      id: generateId(),
     };
     noteService
       .create(noteObject)
