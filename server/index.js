@@ -1,9 +1,16 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
+const Note = require('./models/note');
+
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
+morgan.token('body', req => JSON.stringify(req.body));
+app.use(morgan(':method :url :response-time ms :body'));
 // TODO add mongoDB and mongoose
 // TODO add dotenv config
 // TODO add errorHandler
@@ -35,14 +42,6 @@ let notes = [
     id: 4,
   },
 ];
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello there </h1>');
-});
-
-app.get('/api', (req, res) => {
-  res.json({ message: 'Hello from server' });
-});
 
 app.get('/api/notes', (req, res) => {
   res.status(200).json(notes);
@@ -84,6 +83,12 @@ app.post('/api/notes', (req, res) => {
   notes = notes.concat(note);
   res.status(200).json(note);
 });
+
+const unknownEndpoint = (req, res) => {
+  res.status(404).send({ error: 'unknown endpoint' });
+};
+
+app.use(unknownEndpoint);
 
 const PORT = process.env.PORT || 3001;
 
