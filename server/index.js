@@ -12,10 +12,6 @@ app.use(cors());
 
 morgan.token('body', req => JSON.stringify(req.body));
 app.use(morgan(':method :url :response-time ms :body'));
-// TODO add mongoDB and mongoose
-// TODO add dotenv config
-// TODO add errorHandler
-// TODO add requestLogger with morgan
 
 app.get('/api/notes', (req, res) => {
   Note.find({}).then(notes => {
