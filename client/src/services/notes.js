@@ -19,7 +19,6 @@ const deleteNote = id => {
 
 const update = (newObject, id) => {
   const request = axios.put(`${baseUrl}/${id}`, newObject);
-  console.log('id:', id, 'obj:', newObject);
   return request.then(res => res.data);
 };
 
