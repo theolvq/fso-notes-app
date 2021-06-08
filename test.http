@@ -1,5 +1,3 @@
-
-
 # PUT http://localhost:3000/api/notes/1
 # Content-Type: application/json
 
@@ -16,8 +14,15 @@ POST http://localhost:3000/api/notes
 Content-Type: application/json
 
 {
-  "content": "Hello", 
-  "date": "today", 
-  "important": true,
-  "id": 10
+    "content": "Another test for notes linked to users",
+    "important": true,
+    "date": "07/06/2021",
+    "userId": "60bea5b2e5a0de102bc508cc"
 }
+
+# {
+#     "notes": [],
+#     "username": "daawa",
+#     "name": "Theo Leveque",
+#     "password": "WhistlerBaby"
+# }
