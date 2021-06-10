@@ -10,15 +10,28 @@
 
 
 
-POST http://localhost:3000/api/notes
+POST http://localhost:3000/api/login
 Content-Type: application/json
 
 {
-    "content": "Another test for notes linked to users",
-    "important": true,
-    "date": "07/06/2021",
-    "userId": "60bea5b2e5a0de102bc508cc"
+    "username": "daawa",
+    "password": "WhistlerBaby",
 }
+
+# {
+#     "notes": [],
+#     "username": "Flower",
+#     "name": "Lily",
+#     "password": "Whistler"
+# }
+
+
+# {
+#     "content": "Another test for notes linked to users",
+#     "important": true,
+#     "date": "07/06/2021",
+#     "userId": "60bea5b2e5a0de102bc508cc"
+# }
 
 # {
 #     "notes": [],
