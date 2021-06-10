@@ -10,13 +10,19 @@
 
 
 
-POST http://localhost:3000/api/login
+POST http://localhost:3000/api/notes
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhYXdhIiwiaWQiOiI2MGJlYTViMmU1YTBkZTEwMmJjNTA4Y2MiLCJpYXQiOjE2MjMzNDc0OTV9.4v3jpGi1Ion3HESjYz-MCZ4h1fLrnnZ76Jy6Zb6rHPI
 
 {
-    "username": "daawa",
-    "password": "WhistlerBaby",
+    "content": "Using token and bearer authorization",
+    "important": true
 }
+
+# {
+#     "username": "daawa",
+#     "password": "WhistlerBaby",
+# }
 
 # {
 #     "notes": [],
