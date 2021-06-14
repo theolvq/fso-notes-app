@@ -1,15 +1,23 @@
 import axios from 'axios';
 
 const baseUrl = '/api/notes';
+let token = null;
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then(res => res.data);
+const setToken = newToken => {
+  token = `bearer ${newToken}`;
 };
 
-const create = newObject => {
-  const request = axios.post(baseUrl, newObject);
-  return request.then(res => res.data);
+const getAll = async () => {
+  const req = await axios.get(baseUrl);
+  return req.data;
+};
+
+const create = async newObject => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const res = await axios.post(baseUrl, newObject, config);
+  return res.data;
 };
 
 const deleteNote = id => {
@@ -27,6 +35,7 @@ const noteService = {
   create,
   deleteNote,
   update,
+  setToken,
 };
 
 export default noteService;

@@ -9,7 +9,9 @@ const Notification = ({ message }) => {
     background: 'hsla(100, 66%, 47%, 0.6)',
     color: 'green',
   };
-  const style = message.includes('error') ? errorStyle : confirmStyle;
+  const style = message.toLowerCase().includes('error')
+    ? errorStyle
+    : confirmStyle;
   return (
     <div style={style}>
       <p>{message}</p>
