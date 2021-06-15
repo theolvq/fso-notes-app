@@ -5,58 +5,35 @@ import NoteForm from './components/NoteForm';
 import LoginForm from './components/LoginForm';
 import Notification from './components/Notification';
 import ShowButton from './components/ShowButton';
+import Togglable from './components/Togglable';
 import loginService from './services/login';
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
-  const [isImportant, setIsImportant] = useState(false);
   const [showAll, setShowAll] = useState(true);
   const [message, setMessage] = useState(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then(initialNotes => setNotes(initialNotes));
   }, []);
 
-  const handleChange = e => {
-    const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
-      setIsImportant(checked);
-    } else {
-      switch (name) {
-        case 'newNote':
-          setNewNote(value);
-          break;
-        case 'username':
-          setUsername(value);
-          break;
-        case 'password':
-          setPassword(value);
-          break;
-        default:
-          break;
-      }
+  useEffect(() => {
+    const loggedInUserJSON = window.localStorage.getItem('loggedInNoteAppUser');
+    if (loggedInUserJSON) {
+      const user = JSON.parse(loggedInUserJSON);
+      setUser(user);
+      noteService.setToken(user.token);
     }
-  };
+  }, []);
 
-  const addNote = e => {
-    e.preventDefault();
-    const noteObject = {
-      content: newNote,
-      date: new Date(),
-      important: isImportant,
-    };
+  const addNote = noteObject => {
     noteService
       .create(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote));
         setMessage('Note added');
         setTimeout(() => setMessage(null), 5000);
-        setNewNote('');
-        setIsImportant(false);
       })
       .catch(err => {
         setMessage(`The following error occured: ${err}`);
@@ -85,15 +62,12 @@ function App() {
     setShowAll(!showAll);
   };
 
-  const handleLogin = async e => {
-    e.preventDefault();
+  const login = async userObject => {
     try {
-      const user = await loginService.login({ username, password });
+      const user = await loginService.login(userObject);
       window.localStorage.setItem('loggedInNoteAppUser', JSON.stringify(user));
       noteService.setToken(user.token);
       setUser(user);
-      setUsername('');
-      setPassword('');
     } catch (exception) {
       setMessage('Error: wrong credentials');
       setTimeout(() => {
@@ -112,20 +86,14 @@ function App() {
         <>
           {' '}
           <p>Welcome {user.name}</p>
-          <NoteForm
-            newNote={newNote}
-            isImportant={isImportant}
-            handleChange={handleChange}
-            addNote={addNote}
-          />
+          <Togglable buttonLabel="new note">
+            <NoteForm createNote={addNote} />
+          </Togglable>
         </>
       ) : (
-        <LoginForm
-          handleLogin={handleLogin}
-          username={username}
-          password={password}
-          handleChange={handleChange}
-        />
+        <Togglable buttonLabel="Login">
+          <LoginForm login={login} />
+        </Togglable>
       )}
 
       <ShowButton toggleShowAll={toggleShowAll} showAll={showAll} />
