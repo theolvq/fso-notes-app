@@ -1,5 +1,5 @@
 import noteService from './services/notes';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Note from './components/Note';
 import NoteForm from './components/NoteForm';
 import LoginForm from './components/LoginForm';
@@ -13,6 +13,8 @@ function App() {
   const [showAll, setShowAll] = useState(true);
   const [message, setMessage] = useState(null);
   const [user, setUser] = useState(null);
+
+  const noteFormRef = useRef();
 
   useEffect(() => {
     noteService.getAll().then(initialNotes => setNotes(initialNotes));
@@ -28,6 +30,7 @@ function App() {
   }, []);
 
   const addNote = noteObject => {
+    noteFormRef.current.toggleVisibility();
     noteService
       .create(noteObject)
       .then(returnedNote => {
@@ -84,9 +87,8 @@ function App() {
       {message && <Notification message={message} />}
       {user ? (
         <>
-          {' '}
           <p>Welcome {user.name}</p>
-          <Togglable buttonLabel="new note">
+          <Togglable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm createNote={addNote} />
           </Togglable>
         </>
