@@ -35,6 +35,7 @@ const NoteForm = ({ createNote }) => {
             name="newNote"
             value={newNote}
             onChange={handleChange}
+            id="newNote"
           />
         </label>
         <label>
@@ -44,6 +45,7 @@ const NoteForm = ({ createNote }) => {
             name="important"
             value={isImportant}
             onChange={handleChange}
+            id="isImportant"
           />
         </label>
         <button type="submit">Add</button>

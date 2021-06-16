@@ -23,7 +23,7 @@ test('renders content', () => {
   //  renders the selected component to the console
   // console.log(prettyDOM(li));
 
-  // renders the desired component to the console fpr debugging
+  // renders the desired component to the console for debugging
   // component.debug();
 
   // method 1

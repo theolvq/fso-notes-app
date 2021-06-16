@@ -11,6 +11,7 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail",
     "test": "NODE_ENV=test jest --verbose --runInBand",
+    "stat:test": "cross-env NODE_ENv=test node index.js",
     "lint": "eslint ./server/*"
   },
   "keywords": [],
@@ -29,6 +30,8 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
     "eslint": "^7.28.0",
     "eslint-plugin-jest": "^24.3.6",
     "jest": "^27.0.4",

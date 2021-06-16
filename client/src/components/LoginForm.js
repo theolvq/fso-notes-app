@@ -5,7 +5,7 @@ const LoginForm = ({ login }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
       case 'username':
@@ -18,7 +18,7 @@ const LoginForm = ({ login }) => {
         return;
     }
   };
-  const handleLogin = e => {
+  const handleLogin = (e) => {
     e.preventDefault();
     login({
       username,
@@ -36,6 +36,7 @@ const LoginForm = ({ login }) => {
           value={username}
           name="username"
           onChange={handleChange}
+          id="username"
         />{' '}
       </label>
       <label>
@@ -45,9 +46,12 @@ const LoginForm = ({ login }) => {
           value={password}
           name="password"
           onChange={handleChange}
+          id="password"
         />{' '}
       </label>
-      <button type="submit">Login</button>
+      <button id="login-btn" type="submit">
+        Login
+      </button>
     </form>
   );
 };
