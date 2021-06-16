@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const NoteForm = ({ createNote }) => {
   const [newNote, setNewNote] = useState('');

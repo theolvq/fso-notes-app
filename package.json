@@ -10,7 +10,8 @@
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail",
-    "test": "NODE_ENV=test jest --verbose --runInBand"
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "lint": "eslint ./server/*"
   },
   "keywords": [],
   "author": "",
@@ -24,9 +25,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "mongoose-unique-validator": "^2.0.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-plugin-jest": "^24.3.6",
     "jest": "^27.0.4",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"

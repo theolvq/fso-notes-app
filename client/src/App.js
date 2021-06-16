@@ -1,5 +1,5 @@
 import noteService from './services/notes';
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Note from './components/Note';
 import NoteForm from './components/NoteForm';
 import LoginForm from './components/LoginForm';
@@ -52,7 +52,7 @@ function App() {
       .update(updatedNote, id)
       .then(returnedNote => {
         setNotes(notes.map(note => (note.id !== id ? note : returnedNote)));
-        setMessage(`Note Updated`);
+        setMessage('Note Updated');
         setTimeout(() => setMessage(null), 5000);
       })
       .catch(err => {

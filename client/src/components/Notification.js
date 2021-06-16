@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Notification = ({ message }) => {
   const errorStyle = {
     border: '3px solid hsla(9, 87%, 47%, 1)',

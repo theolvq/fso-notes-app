@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Note = ({ note, toggleImportance }) => {
   const btnLabel = note.important ? 'make not important' : 'make important';
   return (
