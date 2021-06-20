@@ -15,7 +15,7 @@ const Notification = ({ message }) => {
     ? errorStyle
     : confirmStyle;
   return (
-    <div style={style}>
+    <div className="notification" style={style}>
       <p>{message}</p>
     </div>
   );
